@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+
+# Excluded project files
+impulse_buy.html
+paper.pdf
+demo_readme/
