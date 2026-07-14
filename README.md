@@ -1,6 +1,8 @@
 <div style="text-align: justify;">
 
-# Executive Summary
+# Determinants of Impulsive Online Fashion Buying Behvaior in Dhaka Gen Z Consumers
+
+## Executive Summary
 
 This project investigates the determinants of **impulsive online fashion buying behavior** among **Generation Z consumers** in Dhaka, Bangladesh. Using survey data from **160 participants**, the study examines how **external social pressures** (peer influence and perceived social status) and **internal personality traits** collectively drive unplanned fashion purchases on social commerce platforms.
 
@@ -17,7 +19,7 @@ Quantitative analysis was conducted entirely in **R**, using **Exploratory Data 
 ***Figure 01:** Correlation Heatmap of Composite Indices.*
 
 
-# Research Problem
+## Research Problem
 
 The rapid growth of social commerce platforms—particularly Facebook and Instagram—has transformed how Gen Z consumers in Dhaka discover and purchase fashion items. Impulsive buying on these platforms is fueled by algorithmic recommendations, peer-driven content, and frictionless payment options, yet the underlying psychological and social mechanisms remain underexplored in the Bangladeshi context.
 
@@ -32,9 +34,9 @@ Understanding these drivers enables:
 * **Consumers** to develop awareness of the psychological triggers behind their own unplanned spending
 
 
-# Methodology
+## Methodology
 
-## Data Collection & Preparation
+### Data Collection & Preparation
 
 The dataset was collected via a structured survey of **160 Gen Z respondents** (aged 18–27) in Dhaka, covering demographics, shopping behavior, and Likert-scale measures across three independent variable constructs and one dependent variable construct.
 
@@ -50,7 +52,7 @@ The dataset was collected via a structured survey of **160 Gen Z respondents** (
 2. **Composite Index Creation**: Built four composite indices by averaging Likert items within each construct
 3. **Reliability Testing**: Verified internal consistency using **Cronbach's alpha** for all multi-item scales
 
-## Analytical Framework
+### Analytical Framework
 
 The analysis followed a two-phase approach:
 
@@ -68,9 +70,9 @@ The analysis followed a two-phase approach:
 * Welch's two-sample t-test for gender comparisons
 
 
-# Exploratory Data Analysis
+## Exploratory Data Analysis
 
-## Demographics & Basic Behavior
+### Demographics & Basic Behavior
 
 ![](assets/age-gender-distribution-1.png)
 ***Figure 02:** Age & Gender Distribution.*
@@ -82,16 +84,16 @@ The sample skews **female** (97 vs 63) and toward the **23–27** age band (99 v
 
 Lower-income respondents shop least often—in **Below 5,000**, 76% shop **Rarely** or **Once a couple months**. Purchase frequency rises with income, though weekly shopping remains rare across all income bands.
 
-## Platform & Shopping Behavior
+### Platform & Shopping Behavior
 
 ![](assets/platform-payment-distribution-1.png)
 ***Figure 04:** Most Used Purchase Platform & Preferred Payment Method Distribution.*
 
 **Facebook** dominates (88 of 160), followed by **Instagram** (39). **Cash on Delivery** is the most common payment method overall, especially on Facebook (51 of 88 ≈ 58%). Interestingly, brand-website buyers lean toward **mobile financial services** rather than COD.
 
-## Independent Variable Distributions
+### Independent Variable Distributions
 
-### Peer Pressure
+#### Peer Pressure
 
 ![](assets/peer-pressure-distribution-1.png)
 ***Figure 05:** Peer Pressure Index Distribution.*
@@ -103,21 +105,21 @@ Centered near the scale midpoint (mean 2.96, median 3.0, SD 0.84). No respondent
 
 Females report higher peer influence than males at both ages (medians ~3.2–3.5 vs ~2.6–2.8). The gender gap is larger than the age gap.
 
-### Perceived Social Status
+#### Perceived Social Status
 
 ![](assets/social-status-distribution-1.png)
 ***Figure 07:** Social Status Index Distribution.*
 
 Roughly central and symmetric (mean 2.78, median 2.75, SD 0.86), spanning the full 1–5 range.
 
-### Personality Traits
+#### Personality Traits
 
 ![](assets/personality-distribution-1.png)
 ***Figure 08:** Personality Index Distribution.*
 
 Mean 2.76, median 2.71, SD 0.90—the widest-spread predictor, covering the full 1–5 range. Females have a markedly higher median (3.0) than males (2.14–2.29), the largest and most consistent gender gap among the three indices.
 
-## Key Predictor Relationships
+### Key Predictor Relationships
 
 ![](assets/personality-vs-dv-1.png)
 ***Figure 09:** Personality vs. Dependent Variable.*
@@ -134,7 +136,7 @@ Peer influence correlates **weakly** with the dependent variable (r = 0.18)—th
 
 Social status correlates **moderately** with the dependent variable (r ≈ 0.29)—stronger than peer influence but well below personality's standout association.
 
-## Post-Purchase Outcomes
+### Post-Purchase Outcomes
 
 ![](assets/regret-dist-1.png)
 ***Figure 12:** Regrettable Purchase Distribution.*
@@ -147,7 +149,7 @@ The distribution is **bimodal/polarized**—63 say **No** and 68 say **Yes**, wi
 Clearest gradient of all the density plots: mean personality rises 2.29 → 2.76 → 3.34 across **No**/**a few**/**many** unused purchases—consistent with an impulsivity interpretation.
 
 
-# Hypothesis Testing Results
+## Hypothesis Testing Results
 
 Ten hypotheses were tested using the appropriate statistical tests based on variable types and assumptions. A summary of all results:
 
@@ -166,7 +168,7 @@ Ten hypotheses were tested using the appropriate statistical tests based on vari
 | **09** | Higher monthly allowance does not predict higher impulsive buying | One-way ANOVA + Tukey HSD | **Reject Null** |
 | **10** | No gender difference in impulsive buying behavior | Welch's t-test | **Reject Null** |
 
-### Key Findings from Hypothesis Testing
+#### Key Findings from Hypothesis Testing
 
 **1. Personality Traits Dominate (H1, H2)**
 * The multiple regression model (H1) explains **34.73%** of variance in impulsive buying (p < 0.001). Personality traits (β = 0.621) and social status (β = 0.186) are significant, but **peer influence drops out** (β = -0.038, p = 0.661) when all three are modeled together.
@@ -185,7 +187,7 @@ Ten hypotheses were tested using the appropriate statistical tests based on vari
 * Higher impulsivity is significantly associated with post-purchase regret (H7: p < 0.001), driven specifically by the **Yes-regret** group scoring higher than the **No-regret** group.
 
 
-# Conclusion
+## Conclusion
 
 This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven primarily by **internal psychological states** rather than external mechanics. The findings reveal a clear **driver hierarchy**:
 
@@ -210,7 +212,7 @@ This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven
 
 **Strategic Insight:** Impulsive fashion consumption in Dhaka is a **cyclical process of mood regulation**—personality-driven consumers buy on impulse to regulate emotions, often experience regret, yet many rationalize their purchases as necessary or meaningful. Marketers should focus on creating **mood-lifting content** and providing **post-purchase validation** to neutralize consumer guilt, rather than relying solely on peer pressure tactics.
 
-## Tech Stack & Tools
+### Tech Stack & Tools
 
 | Tool | Purpose |
 |:-----|:--------|
@@ -222,7 +224,7 @@ This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven
 | **RMarkdown** | Reproducible research document |
 
 
-## Repository Structure
+### Repository Structure
 
 ```
 ├── impulse_buy.Rmd          # Main R Markdown analysis file (source)

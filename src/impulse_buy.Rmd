@@ -47,7 +47,7 @@ Now, we import the dataframe and take a look at the first few rows of the **raw 
 
 ```{r import-raw-data}
 # importing the raw dataframe and inspecting the first few rows
-df_raw <- read_excel(path = "survey_response.xlsx", sheet = "raw_data")
+df_raw <- read_excel(path = "../data/survey_response.xlsx", sheet = "raw_data")
 head(df_raw)
 ```
 
@@ -55,7 +55,7 @@ The raw dataframe has longer questions and have some redundant columns that will
 
 ```{r import-clean-data}
 # importing the clean dataframe and inspecting the first few rows
-df <- read_excel(path = "survey_response.xlsx", sheet = "clean_data")
+df <- read_excel(path = "../data/survey_response.xlsx", sheet = "clean_data")
 head(df)
 ```
 

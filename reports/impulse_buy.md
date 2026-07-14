@@ -68,10 +68,52 @@ First, we import the necessary libraries for **Exploratory Data Analysis
 ``` r
 # importing the necessary libraries
 library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.2.1     ✔ readr     2.2.0
+    ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+    ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+    ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+    ## ✔ purrr     1.2.1     
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
 library(readxl)
 library(psych)
-library(car)
+```
 
+    ## 
+    ## Attaching package: 'psych'
+    ## 
+    ## The following objects are masked from 'package:ggplot2':
+    ## 
+    ##     %+%, alpha
+
+``` r
+library(car)
+```
+
+    ## Loading required package: carData
+    ## 
+    ## Attaching package: 'car'
+    ## 
+    ## The following object is masked from 'package:psych':
+    ## 
+    ##     logit
+    ## 
+    ## The following object is masked from 'package:dplyr':
+    ## 
+    ##     recode
+    ## 
+    ## The following object is masked from 'package:purrr':
+    ## 
+    ##     some
+
+``` r
 # printing a confirmation message
 message("The libraries have been imported successfully.")
 ```
@@ -83,22 +125,22 @@ the **raw data**.
 
 ``` r
 # importing the raw dataframe and inspecting the first few rows
-df_raw <- read_excel(path = "survey_response.xlsx", sheet = "raw_data")
+df_raw <- read_excel(path = "../data/survey_response.xlsx", sheet = "raw_data")
 head(df_raw)
 ```
 
     ## # A tibble: 6 × 27
-    ##   Timestamp           `What is your age range?` `What is your gender?` What is your personal monthl…¹ What is your preferr…²
-    ##   <dttm>              <chr>                     <chr>                  <chr>                          <chr>                 
-    ## 1 2026-01-11 01:53:53 23–27                     Female                 5,000–10,000                   Mobile financial serv…
-    ## 2 2026-01-11 08:39:49 23–27                     Male                   Below 5,000                    Cash on Delivery (COD)
-    ## 3 2026-01-11 09:33:21 23–27                     Female                 Above 20,000                   Mobile financial serv…
-    ## 4 2026-01-11 09:54:58 23–27                     Male                   5,000–10,000                   Cash on Delivery (COD)
-    ## 5 2026-01-11 11:41:22 23–27                     Male                   Above 20,000                   Cash on Delivery (COD)
-    ## 6 2026-01-11 13:34:23 23–27                     Female                 Below 5,000                    Cash on Delivery (COD)
-    ## # ℹ abbreviated names: ¹​`What is your personal monthly allowance/income?`,
-    ## #   ²​`What is your preferred method of payment for any sort of purchase—be it fashion item or non-fashion item?`
-    ## # ℹ 22 more variables: `How frequently do you buy fashion items online?` <chr>,
+    ##   Timestamp           `What is your age range?` `What is your gender?`
+    ##   <dttm>              <chr>                     <chr>                 
+    ## 1 2026-01-11 01:53:53 23–27                     Female                
+    ## 2 2026-01-11 08:39:49 23–27                     Male                  
+    ## 3 2026-01-11 09:33:21 23–27                     Female                
+    ## 4 2026-01-11 09:54:58 23–27                     Male                  
+    ## 5 2026-01-11 11:41:22 23–27                     Male                  
+    ## 6 2026-01-11 13:34:23 23–27                     Female                
+    ## # ℹ 24 more variables: `What is your personal monthly allowance/income?` <chr>,
+    ## #   `What is your preferred method of payment for any sort of purchase—be it fashion item or non-fashion item?` <chr>,
+    ## #   `How frequently do you buy fashion items online?` <chr>,
     ## #   `Which platform do you use the most for online fashion shopping?` <chr>,
     ## #   `I discuss fashion purchases with friends or family before buying.` <dbl>,
     ## #   `Seeing my friends post about fashion brands increases my urge to buy.` <dbl>,
@@ -113,20 +155,22 @@ numerically coded so that they can be inserted into the models.
 
 ``` r
 # importing the clean dataframe and inspecting the first few rows
-df <- read_excel(path = "survey_response.xlsx", sheet = "clean_data")
+df <- read_excel(path = "../data/survey_response.xlsx", sheet = "clean_data")
 head(df)
 ```
 
     ## # A tibble: 6 × 26
-    ##   Timestamp           q1    q2     q3    q4    q5    q6       q7    q8    q9   q10   q11   q12   q13   q14   q15   q16   q17
-    ##   <dttm>              <chr> <chr>  <chr> <chr> <chr> <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-    ## 1 2026-01-11 01:53:53 23–27 Female 5,00… Mobi… 2–3 … Inst…     4     4     5     4     4     4     4     4     4     3     4
-    ## 2 2026-01-11 08:39:49 23–27 Male   Belo… Cash… Once… Inst…     2     1     1     1     1     2     2     1     2     1     2
-    ## 3 2026-01-11 09:33:21 23–27 Female Abov… Mobi… Rare… Bran…     4     3     2     1     1     4     1     1     5     5     1
-    ## 4 2026-01-11 09:54:58 23–27 Male   5,00… Cash… Rare… Face…     3     1     1     3     1     1     1     1     4     3     3
-    ## 5 2026-01-11 11:41:22 23–27 Male   Abov… Cash… Once… Face…     3     4     4     3     4     3     4     3     4     3     4
-    ## 6 2026-01-11 13:34:23 23–27 Female Belo… Cash… Once… Bran…     4     2     2     5     4     4     2     1     5     4     4
-    ## # ℹ 8 more variables: q18 <dbl>, q19 <dbl>, q20 <dbl>, q21 <dbl>, q22 <dbl>, q23 <dbl>, q24 <dbl>, q25 <dbl>
+    ##   Timestamp           q1    q2     q3        q4    q5    q6       q7    q8    q9
+    ##   <dttm>              <chr> <chr>  <chr>     <chr> <chr> <chr> <dbl> <dbl> <dbl>
+    ## 1 2026-01-11 01:53:53 23–27 Female 5,000–10… Mobi… 2–3 … Inst…     4     4     5
+    ## 2 2026-01-11 08:39:49 23–27 Male   Below 5,… Cash… Once… Inst…     2     1     1
+    ## 3 2026-01-11 09:33:21 23–27 Female Above 20… Mobi… Rare… Bran…     4     3     2
+    ## 4 2026-01-11 09:54:58 23–27 Male   5,000–10… Cash… Rare… Face…     3     1     1
+    ## 5 2026-01-11 11:41:22 23–27 Male   Above 20… Cash… Once… Face…     3     4     4
+    ## 6 2026-01-11 13:34:23 23–27 Female Below 5,… Cash… Once… Bran…     4     2     2
+    ## # ℹ 16 more variables: q10 <dbl>, q11 <dbl>, q12 <dbl>, q13 <dbl>, q14 <dbl>,
+    ## #   q15 <dbl>, q16 <dbl>, q17 <dbl>, q18 <dbl>, q19 <dbl>, q20 <dbl>,
+    ## #   q21 <dbl>, q22 <dbl>, q23 <dbl>, q24 <dbl>, q25 <dbl>
 
 # Data Preparation
 
@@ -171,14 +215,15 @@ head(
 ```
 
     ## # A tibble: 6 × 4
-    ##   peer_influence_index social_status_index personality_index dependent_variable_index
-    ##                  <dbl>               <dbl>             <dbl>                    <dbl>
-    ## 1                  4.2                4                 3.57                      4.5
-    ## 2                  1.2                1.75              1.14                      3  
-    ## 3                  2.2                2.75              2.14                      2  
-    ## 4                  1.8                1.75              2.57                      3  
-    ## 5                  3.6                3.5               3.14                      3  
-    ## 6                  3.4                3                 3.29                      3
+    ##   peer_influence_index social_status_index personality_index
+    ##                  <dbl>               <dbl>             <dbl>
+    ## 1                  4.2                4                 3.57
+    ## 2                  1.2                1.75              1.14
+    ## 3                  2.2                2.75              2.14
+    ## 4                  1.8                1.75              2.57
+    ## 5                  3.6                3.5               3.14
+    ## 6                  3.4                3                 3.29
+    ## # ℹ 1 more variable: dependent_variable_index <dbl>
 
 ## Calculating the Cronbach’s Alphas
 
@@ -353,8 +398,7 @@ ggplot(data = df, aes(x = q1, fill = q2)) +
   )
 ```
 
-![](assets/age-gender-distribution-1.png)<!-- -->
-***Figure 01:** Age & Gender Distribution.*
+![](impulse_buy_files/figure-gfm/age-gender-distribution-1.png)<!-- -->
 
 **Key Insights**
 
@@ -389,8 +433,7 @@ ggplot(data = df, aes(x = q3, fill = q5)) +
   )
 ```
 
-![](assets/income-vs-shopping-frequency-1.png)<!-- -->
-***Figure 02:** Income vs. Online Shopping Frequency.*
+![](impulse_buy_files/figure-gfm/income-vs-shopping-frequency-1.png)<!-- -->
 
 **Key Insights**
 
@@ -426,8 +469,7 @@ ggplot(data = df, aes(x = q6, fill = q4)) +
   )
 ```
 
-![](assets/platform-payment-distribution-1.png)<!-- -->
-***Figure 03:** Most Used Purchase Platform & Preferred Payment Method Distribution.*
+![](impulse_buy_files/figure-gfm/platform-payment-distribution-1.png)<!-- -->
 
 **Key Insights**
 
@@ -461,8 +503,7 @@ ggplot(data = df, aes(x = q5)) +
   )
 ```
 
-![](assets/shopping-frequency-1.png)<!-- -->
-***Figure 04:** Gen Z Shopping Frequency.*
+![](impulse_buy_files/figure-gfm/shopping-frequency-1.png)<!-- -->
 
 **Key Insights**
 
@@ -487,8 +528,7 @@ ggplot(data = df, aes(x = peer_influence_index)) +
   )
 ```
 
-![](assets/peer-pressure-distribution-1.png)<!-- -->
-***Figure 05:** Peer Pressure Index Distribution.*
+![](impulse_buy_files/figure-gfm/peer-pressure-distribution-1.png)<!-- -->
 
 **Key Insights**
 
@@ -518,8 +558,7 @@ ggplot(data = df,aes(x = q2, y = peer_influence_index, fill = q1)) +
   )
 ```
 
-![](assets/peer-pressure-demographics-1.png)<!-- -->
-***Figure 06:** Peer Pressure Index by Gender & Age.*
+![](impulse_buy_files/figure-gfm/peer-pressure-demographics-1.png)<!-- -->
 
 **Key Insights**
 
@@ -553,8 +592,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/peer-vs-regret-1.png)<!-- -->
-***Figure 07:** Peer Pressure Index vs. Regret.*
+![](impulse_buy_files/figure-gfm/peer-vs-regret-1.png)<!-- -->
 
 ### Peer Pressure vs. Unnecessary Purchase
 
@@ -580,8 +618,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/peer-vs-unnecessary-1.png)<!-- -->
-***Figure 08:** Peer Pressure Index vs. Unnecessary Purchase.*
+![](impulse_buy_files/figure-gfm/peer-vs-unnecessary-1.png)<!-- -->
 
 **Key Insights**
 
@@ -610,8 +647,7 @@ ggplot(df, aes(x = peer_influence_index, y = social_status_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/peer-vs-social-status-1.png)<!-- -->
-***Figure 09:** Peer Pressure vs. Social Status.*
+![](impulse_buy_files/figure-gfm/peer-vs-social-status-1.png)<!-- -->
 
 **Key Insights**
 
@@ -641,8 +677,7 @@ ggplot(df, aes(x = peer_influence_index, y = personality_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/peer-vs-personality-1.png)<!-- -->
-***Figure 10:** Peer Pressure vs. Personality Traits.*
+![](impulse_buy_files/figure-gfm/peer-vs-personality-1.png)<!-- -->
 
 **Key Insights**
 
@@ -672,8 +707,7 @@ ggplot(data = df, aes(x = peer_influence_index, y = dependent_variable_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/peer-vs-dv-1.png)<!-- -->
-***Figure 11:** Peer Pressure vs. Dependent Variable.*
+![](impulse_buy_files/figure-gfm/peer-vs-dv-1.png)<!-- -->
 
 **Key Insights**
 
@@ -701,8 +735,7 @@ ggplot(data = df, aes(x = social_status_index)) +
   )
 ```
 
-![](assets/social-status-distribution-1.png)<!-- -->
-***Figure 12:** Social Status Index Distribution.*
+![](impulse_buy_files/figure-gfm/social-status-distribution-1.png)<!-- -->
 
 **Key Insights**
 
@@ -730,8 +763,7 @@ ggplot(data = df,aes(x = q2, y = social_status_index, fill = q1)) +
   )
 ```
 
-![](assets/social-status-demographics-1.png)<!-- -->
-***Figure 13:** Social Status Index by Gender & Age.*
+![](impulse_buy_files/figure-gfm/social-status-demographics-1.png)<!-- -->
 
 **Key Insights**
 
@@ -765,8 +797,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/social-status-vs-regret-1.png)<!-- -->
-***Figure 14:** Social Status Index vs. Regret.*
+![](impulse_buy_files/figure-gfm/social-status-vs-regret-1.png)<!-- -->
 
 **Key Insights**
 
@@ -798,8 +829,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/social-status-vs-unnecessary-1.png)<!-- -->
-***Figure 15:** Social Status Index vs. Unnecessary Purchase.*
+![](impulse_buy_files/figure-gfm/social-status-vs-unnecessary-1.png)<!-- -->
 
 ### Social Status vs. Personality Traits
 
@@ -823,12 +853,13 @@ ggplot(df, aes(x = social_status_index, y = personality_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/social-status-vs-personality-1.png)<!-- -->
-***Figure 16:** Social Status vs. Personality Traits.*
+![](impulse_buy_files/figure-gfm/social-status-vs-personality-1.png)<!-- -->
 
 **Key Insights**
 
-A weak positive association (r ≈ 0.27) between social status and personality—the two constructs share some overlap but measure distinct dimensions.
+A weak positive association (r ≈ 0.27) between social status and
+personality—the two constructs share some overlap but measure distinct
+dimensions.
 
 ### Social Status vs. Dependent Variable
 
@@ -852,8 +883,7 @@ ggplot(data = df, aes(x = social_status_index, y = dependent_variable_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/social-status-vs-dv-1.png)<!-- -->
-***Figure 17:** Social Status vs. Dependent Variable.*
+![](impulse_buy_files/figure-gfm/social-status-vs-dv-1.png)<!-- -->
 
 **Key Insights**
 
@@ -878,8 +908,7 @@ ggplot(data = df, aes(x = personality_index)) +
   )
 ```
 
-![](assets/personality-distribution-1.png)<!-- -->
-***Figure 18:** Personality Index Distribution.*
+![](impulse_buy_files/figure-gfm/personality-distribution-1.png)<!-- -->
 
 **Key Insights**
 
@@ -907,8 +936,7 @@ ggplot(data = df,aes(x = q2, y = personality_index, fill = q1)) +
   )
 ```
 
-![](assets/personality-demographics-1.png)<!-- -->
-***Figure 19:** Personality Index by Gender & Age.*
+![](impulse_buy_files/figure-gfm/personality-demographics-1.png)<!-- -->
 
 **Key Insights**
 
@@ -940,8 +968,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/personality-vs-regret-1.png)<!-- -->
-***Figure 20:** Personality Index vs. Regret.*
+![](impulse_buy_files/figure-gfm/personality-vs-regret-1.png)<!-- -->
 
 **Key Insights**
 
@@ -975,8 +1002,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/personality-vs-unnecessary-1.png)<!-- -->
-***Figure 21:** Personality Index vs. Unnecessary Purchase.*
+![](impulse_buy_files/figure-gfm/personality-vs-unnecessary-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1008,8 +1034,7 @@ ggplot(data = df, aes(x = personality_index, y = dependent_variable_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](assets/personality-vs-dv-1.png)<!-- -->
-***Figure 22:** Personality vs. Dependent Variable.*
+![](impulse_buy_files/figure-gfm/personality-vs-dv-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1041,8 +1066,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/unplanned-purchase-dist-1.png)<!-- -->
-***Figure 23:** Unplanned Purchase Distribution.*
+![](impulse_buy_files/figure-gfm/unplanned-purchase-dist-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1070,8 +1094,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/unused-purchase-dist-1.png)<!-- -->
-***Figure 24:** Unused Purchase Distribution.*
+![](impulse_buy_files/figure-gfm/unused-purchase-dist-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1099,8 +1122,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](assets/regret-dist-1.png)<!-- -->
-***Figure 25:** Regrettable Purchase Distribution.*
+![](impulse_buy_files/figure-gfm/regret-dist-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1131,8 +1153,7 @@ ggplot(df, aes(x = q3, fill = q4)) +
   )
 ```
 
-![](assets/payment-by-income-1.png)<!-- -->
-***Figure 26:** Payment Method by Income.*
+![](impulse_buy_files/figure-gfm/payment-by-income-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1178,8 +1199,7 @@ ggplot(data = cor_long, aes(x = var1, y = var2, fill = corr)) +
     )
 ```
 
-![](assets/correlation-heatmap-1.png)<!-- -->
-***Figure 27:** Correlation Heatmap of Composite Indices.*
+![](impulse_buy_files/figure-gfm/correlation-heatmap-1.png)<!-- -->
 
 **Key Insights**
 
@@ -1688,10 +1708,11 @@ chisq_result
 ```
 
     ## 
-    ##  Pearson's Chi-squared test with simulated p-value (based on 10000 replicates)
+    ##  Pearson's Chi-squared test with simulated p-value (based on 10000
+    ##  replicates)
     ## 
     ## data:  tab_h8
-    ## X-squared = 1.326, df = NA, p-value = 0.8668
+    ## X-squared = 1.326, df = NA, p-value = 0.8702
 
 ``` r
 # checking the expected cell counts directly—this is the assumption check, and it's exactly what justified using the simulated p-value above instead of the default one
@@ -1873,7 +1894,7 @@ A summary table of all the ten hypotheses are presented below:
 ***Table 01:** Summary of Hypothesis Testing Results.*
 
 | No. | Hypothesis | Result |
-|---|---|---|
+|----|----|----|
 | **01** | Peer Influence, Perceived Social Status, and Behavioral Traits jointly and significantly predict impulsive online fashion buying behavior among Dhaka Gen Z consumers. | Reject Null |
 | **02** | Specific Behavioral Traits have no significant effect on impulse buying behavior among Dhaka Gen Z consumers. | Reject Null |
 | **03** | Peer influence has no significant effect on impulsive online fashion buying behavior among Dhaka Gen Z consumers. | Reject Null |

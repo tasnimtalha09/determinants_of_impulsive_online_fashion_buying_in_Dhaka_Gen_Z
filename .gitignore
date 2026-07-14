@@ -1,7 +1,7 @@
 # macOS
 .DS_Store
 
-# Excluded project files
-impulse_buy.html
-paper.pdf
+# excluded project files
+reports/impulse_buy.html
+reports/paper.pdf
 demo_readme/
