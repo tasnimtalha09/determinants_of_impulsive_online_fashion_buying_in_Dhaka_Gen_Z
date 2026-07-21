@@ -18,6 +18,8 @@ Quantitative analysis was conducted entirely in **R**, using **Exploratory Data 
 ![](assets/correlation-heatmap-1.png)
 ***Figure 01:** Correlation Heatmap of Composite Indices.*
 
+>A LinkedIn post covering this project can be found **[here](https://www.linkedin.com/feed/update/urn:li:activity:7485166667195383809/)**.
+
 
 ## Research Problem
 

@@ -803,7 +803,12 @@ ggplot(df, aes(x = q3, fill = q4)) +
 ## Bringing All the Indices Together
 
 ```{r correlation-heatmap}
-indices <- c("peer_influence_index", "social_status_index", "personality_index", "dependent_variable_index")
+indices <- c(
+  "peer_influence_index",
+  "social_status_index",
+  "personality_index",
+  "dependent_variable_index"
+  )
 
 cor_long <- df |>
   select(all_of(indices)) |>
@@ -832,7 +837,7 @@ ggplot(data = cor_long, aes(x = var1, y = var2, fill = corr)) +
   theme_classic() +
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.text.x = element_text(angle = 30, hjust = 1)
+    axis.text.x = element_text(angle = 10, hjust = 1)
     )
 ```
 
@@ -1135,7 +1140,7 @@ A summary table of all the ten hypotheses are presented below:
 ***Table 01:** Summary of Hypothesis Testing Results.*
 
 | No. | Hypothesis | Result |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **01** | Peer Influence, Perceived Social Status, and Behavioral Traits jointly and significantly predict impulsive online fashion buying behavior among Dhaka Gen Z consumers. | Reject Null |
 | **02** | Specific Behavioral Traits have no significant effect on impulse buying behavior among Dhaka Gen Z consumers. | Reject Null |
 | **03** | Peer influence has no significant effect on impulsive online fashion buying behavior among Dhaka Gen Z consumers. | Reject Null |
