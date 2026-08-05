@@ -821,7 +821,7 @@ ggplot(data = cor_long, aes(x = var1, y = var2, fill = corr)) +
   geom_text(aes(label = sprintf("%.2f", corr)), size = 4) +
   scale_fill_gradient2(
     low = "#377EB8",
-    mid = "white",
+    mid = "#FFFFFF",
     high = "#E41A1C",
     midpoint = 0,
     limits = c(-1, 1)
