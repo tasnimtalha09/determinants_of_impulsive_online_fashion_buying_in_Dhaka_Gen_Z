@@ -1,6 +1,6 @@
 <div style="text-align: justify;">
 
-# Determinants of Impulsive Online Fashion Buying Behvaior in Dhaka Gen Z Consumers
+# Determinants of Impulsive Online Fashion Buying Behavior in Dhaka Gen Z Consumers
 
 ## Executive Summary
 
