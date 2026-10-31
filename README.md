@@ -1,4 +1,5 @@
-::: {style="text-align: justify;"}
+<div style = "text-align: justify;">
+
 # Determinants of Impulsive Online Fashion Buying Behavior in Dhaka Gen Z Consumers
 
 ## Executive Summary
@@ -230,4 +231,4 @@ This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven
 ├── src/                        # Main R Markdown analysis file (source)
 └── README.md                # This file
 ```
-:::
+</div>
