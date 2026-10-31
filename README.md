@@ -227,7 +227,7 @@ This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven
 ```         
 ├── assets/                     # All 27 generated plots
 ├── data/                       # Raw and clean survey data
-├── doc/                        # GitHub-rendered markdown & HTML output and the academic paper
+├── doc/                        # GitHub-rendered markdown & HTML output
 ├── src/                        # Main R Markdown analysis file (source)
 └── README.md                # This file
 ```
