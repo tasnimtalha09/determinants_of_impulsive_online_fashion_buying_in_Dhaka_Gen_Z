@@ -69,12 +69,39 @@ First, there are some columns where order matters. For those column, we convert 
 df <- df |>
   mutate(
     across(c(q2, q4, q6), as.factor),
-    q1 = factor(x = q1, levels = c("18–22", "23–27", "28 and above"), ordered = TRUE),
-    q3 = factor(x = q3, levels = c("Below 5,000", "5,000–10,000", "10,000–15,000", "15,000–20,000", "Above 20,000"), ordered = TRUE),
-    q5 = factor(x = q5, levels = c("Rarely", "Once a couple months", "Once a month", "2–3 times a month", "Once a week or more"), ordered = TRUE),
-    q23_label = factor(x = q23, levels = c(1:5), labels = c("Never", "Rarely", "Sometimes", "Often", "Very Often"), ordered = TRUE),
-    q24_label = factor(x = q24, levels = c(1, 3, 5), labels = c("No, never", "Yes, a few times", "Yes, many times"), ordered = TRUE),
-    q25_label = factor(x = q25, levels = c(1, 3, 5), labels = c("No", "Maybe", "Yes"), ordered = TRUE)
+    q1 = factor(
+      x = q1,
+      levels = c("18–22", "23–27", "28 and above"),
+      ordered = TRUE
+      ),
+    q3 = factor(
+      x = q3,
+      levels = c("Below 5,000", "5,000–10,000", "10,000–15,000", "15,000–20,000", "Above 20,000"),
+      ordered = TRUE
+      ),
+    q5 = factor(
+      x = q5,
+      levels = c("Rarely", "Once a couple months", "Once a month", "2–3 times a month", "Once a week or more"),
+      ordered = TRUE
+      ),
+    q23_label = factor(
+      x = q23,
+      levels = c(1:5),
+      labels = c("Never", "Rarely", "Sometimes", "Often", "Very Often"),
+      ordered = TRUE
+      ),
+    q24_label = factor(
+      x = q24,
+      levels = c(1, 3, 5),
+      labels = c("No, never", "Yes, a few times", "Yes, many times"),
+      ordered = TRUE
+      ),
+    q25_label = factor(
+      x = q25,
+      levels = c(1, 3, 5),
+      labels = c("No", "Maybe", "Yes"),
+      ordered = TRUE
+      )
   )
 ```
 
@@ -99,7 +126,7 @@ head(
 
 ## Calculating the Cronbach’s Alphas
 
-Finally, we calculate the **Cronbach's alpha** to assess the internal consistency of the multi-item constructs. According to google, ***Cronbach's alpha** (𝛼) is a coefficient of internal consistency or reliability used to measure how closely related a set of items (e.g., Likert scale questions) are as a group*.
+Finally, we calculate the **Cronbach's alpha** to assess the internal consistency of the multi-item constructs. ***Cronbach's alpha** (𝛼) is a coefficient of internal consistency or reliability used to measure how closely related a set of items (e.g., Likert scale questions) are as a group*.
 
 ```{r cronbachs-alpha}
 # for Peer Influence
@@ -163,7 +190,7 @@ ggplot(data = df, aes(x = q3, fill = q5)) +
   scale_y_continuous(labels = scales::percent) +
   labs(
     title = "Income vs. Online Shopping Frequency",
-    x = "Personal Monthly Allowance/Income",
+    x = "Personal Monthly Allowance/Income (BDT)",
     y = "Percentage",
     fill = ""
   ) + 
@@ -223,7 +250,7 @@ ggplot(data = df, aes(x = q5)) +
   geom_bar() +
   labs(
     title = "Gen Z Shopping Frequency",
-    x = "How Often Gen Z Consumers Buy Fashion Items Online",
+    x = "No. of Times Gen Z Consumers Buy Fashion Items Online",
     y = "Count"
   ) +
   theme_classic() +
@@ -706,7 +733,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Unplanned Purchase Distribution",
-    x = "How Often Gen Z Consumers Make Unplanned Purchases",
+    x = "No. of Times Gen Z Consumers Make Unplanned Purchases",
     y = "Count"
   ) +
   theme_classic() +
@@ -731,7 +758,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Unused Purchase Distribution",
-    x = "How Often Gen Z Consumers Made a Purchase that They Never Used",
+    x = "No. of Times Gen Z Consumers Made a Purchase that They Never Used",
     y = "Count"
   ) +
   theme_classic() +
@@ -756,7 +783,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Regrettable Purchase Distribution",
-    x = "How Often Gen Z Consumers Bought an Item That They Regretted",
+    x = "No. of Times Gen Z Consumers Bought an Item That They Regretted",
     y = "Count"
   ) +
   theme_classic() +
@@ -781,7 +808,7 @@ ggplot(df, aes(x = q3, fill = q4)) +
   geom_bar(position = "dodge") +
   labs(
     title = "Payment Method by Income",
-    x = "Personal Monthly Allowance/Income",
+    x = "Personal Monthly Allowance/Income (BDT)",
     y = "Count",
     fill = "Payment Method"
     ) +
@@ -993,25 +1020,31 @@ summary(anova_h7)
 
 The test reveals the p-value to be **less than 0.001**, which is less than or equal to the α (0.05).
 
+We now runn a **post-hoc Tukey HSD** because the ANOVA came back significant—the ANOVA only tells us some group differs from another whereas Tukey tells us specifically which pairs (e.g., is it Yes vs. No, or Maybe vs. No, or both).
+
 ```{r h7-tukey-regret}
-# running a post-hoc Tukey HSD because the ANOVA came back significant—the ANOVA only tells us some group differs from another whereas Tukey tells us specifically which pairs (e.g., is it Yes vs. No, or Maybe vs. No, or both)
+# post-hoc Tukey HSD
 TukeyHSD(x = anova_h7)
 ```
 
 Only **one** of the three pairwise comparisons clears the 0.05 bar. **Maybe** sits numerically between **No** (2.50) and **Yes** (3.32) at 2.93, but statistically it's not distinguishable from either neighbor—it just doesn't have enough separation (or a big enough sample, n = 29) to be confident it's different from either **No** or **Yes**.
 
+We now check the equal-variance assumption ANOVA relies on (Levene's test)—if this test itself came back significant, it would mean the group variances differ too much for the ANOVA p-value above to be trustworthy.
+
 ```{r h7-levene-regret}
-# checking the equal-variance assumption ANOVA relies on (Levene's test)—if this test itself came back significant, it would mean the group variances differ too much for the ANOVA p-value above to be trustworthy
+# Levene's test
 leveneTest(
   y = dependent_variable_index ~ q25_label,
   data = df
 )
 ```
 
-From the test, p = **0.762**—not significant, meaning group variances are roughly equal. This is good news—it means the ANOVA's equal-variance assumption holds, so the ANOVA's p-value can be trusted above rather than needing to lean on the Kruskal-Wallis backup.
+From the test, p = **0.762**—not significant, meaning there is no evidence that the variances differ. This is good news since it means the ANOVA's equal-variance assumption holds, so the ANOVA's p-value can be trusted above rather than needing to lean on the Kruskal-Wallis backup.
+
+Finally, we run an optional non-parametric backup (**Kruskal-Wallis**) as a robustness check—since it makes no assumption about normality or equal variances, agreement between this and the ANOVA above means the conclusion doesn't hinge on those assumptions holding.
 
 ```{r h7-kruskal-backup}
-# optionally running a non-parametric backup (Kruskal-Wallis) as a robustness check—since it makes no assumption about normality or equal variances, agreement between this and the ANOVA above means the conclusion doesn't hinge on those assumptions holding
+# Kruskal-Wallis test
 kruskal.test(
   formula = dependent_variable_index ~ q25_label,
   data = df
@@ -1026,10 +1059,12 @@ This tests mean higher impulsivity is significantly associated with post-purchas
 
 ***There is no significant association between preferred payment method and impulsive online fashion buying behavior among Dhaka Gen Z consumers.***
 
-This hypothesis aims to find whether preferred payment method is associated with impulsive buying. As the independent variable (Payment Method) and the dependent variable (Impulsivity Category, derived from the frequency of unplanned purchases in Q23, grouped into Low/Medium/High) are both categorical, a **two-tailed chi-square test of independence** was conducted to examine whether the null hypothesis can be rejected. We run the chi-square test with a Monte Carlo simulation (`simulate.p.value = TRUE`) instead of the standard asymptotic p-value, because several cells below have small expected counts—the usual chi-square approximation isn't reliable when expected counts drop much below 5
+This hypothesis aims to find whether preferred payment method is associated with impulsive buying. As the independent variable (Payment Method) and the dependent variable (Impulsivity Category, derived from the frequency of unplanned purchases in Q23, grouped into Low/Medium/High) are both categorical, a **two-tailed chi-square test of independence** was conducted to examine whether the null hypothesis can be rejected.
 
-```{r h8-chisq-payment}
-# categorizing q23 into Low/Medium/High—a chi-square test of independence needs two categorical variables, and payment method is already categorical, so the numeric q23 needs bucketing first
+First, we categorize q23 into Low/Medium/High since a chi-square test of independence needs two categorical variables, and payment method is already categorical, so the numeric q23 needs bucketing first.
+
+```{r h8-q23-categorization}
+# categorizing q23 into Low/Medium/High
 df <- df |> 
   mutate(
     q23_cat = case_when(
@@ -1039,15 +1074,21 @@ df <- df |>
       TRUE ~ NA_character_
     )
   )
+```
 
+Now, we build the contingency table (Payment Method x Impulsivity Category) since this cross-tab of observed counts is the actual input the chi-square test compares against expected counts.
+
+```{r h8-contingency-table}
 # building the contingency table (Payment Method x Impulsivity Category)—this cross-tab of observed counts is the actual input the chi-square test compares against expected counts
 tab_h8 <- table(df$q4, df$q23_cat)
 
 # viewing the table
 tab_h8
+```
 
-cat("\n")
+We run the chi-square test with a Monte Carlo simulation (`simulate.p.value = TRUE`) instead of the standard asymptotic p-value, because several cells above have small expected counts—the usual chi-square approximation isn't reliable when expected counts drop much below 5.
 
+```{r h8-chisq-payment}
 # running a Chi-square test of independence
 chisq_result <- chisq.test(
   x = tab_h8,
@@ -1057,7 +1098,7 @@ chisq_result <- chisq.test(
 
 chisq_result
 
-# checking the expected cell counts directly—this is the assumption check, and it's exactly what justified using the simulated p-value above instead of the default one
+# checking the expected cell counts
 chisq_result$expected
 ```
 
@@ -1096,7 +1137,7 @@ leveneTest(
 )
 ```
 
-From the test, p = **0.357**—not significant, so variances across the five income groups are roughly equal. The ANOVA's equal-variance assumption holds, meaning we can trust the F-test above rather than leaning on the non-parametric backup.
+From the test, p = **0.357**—not significant, meaning there is no evidence that the variances differ. This is good news since it means the ANOVA's equal-variance assumption holds, so the ANOVA's p-value can be trusted above rather than needing to lean on the Kruskal-Wallis backup.
 
 ```{r h9-kruskal-backup}
 # conducting a Non-parametric backup (optional)
@@ -1114,12 +1155,13 @@ This means Dhaka Gen Z consumers with higher monthly personal allowance do exhib
 
 ***There is no significant difference in impulsive online fashion buying behavior between male and female Dhaka Gen Z consumers.***
 
-As the independent variable (Gender) is categorical and the dependent variable (Impulsive Buying Index) is a numeric composite score, a **two-tailed independent-samples t-test (Welch's t-test)** was conducted to examine whether the null hypothesis can be rejected. We run Welch's t-test since it doesn't assume equal variances between groups—a safer default here given the uneven group sizes (63 males vs. 97 females)
+As the independent variable (Gender) is categorical and the dependent variable (Impulsive Buying Index) is a numeric composite score, a **two-tailed independent-samples t-test (Welch's t-test)** was conducted to examine whether the null hypothesis can be rejected. We run Welch's t-test since it doesn't assume equal variances between groups—a safer default here given the uneven group sizes (63 males vs. 97 females).
+
+We convert gender into a two-level factor since a t-test compares exactly two groups. So this just locks in which two and their order (Male first, Female second).
 
 ```{r h10-ttest-gender}
-# keeping only "Male" and "Female" and converting gender into a two-level factor—a t-test compares exactly two groups, so this just locks in which two and their order (Male first, Female second)
+# correcting the order of q2
 df_h10 <- df |>  
-  filter(q2 %in% c("Male", "Female")) |>  
   mutate(q2 = factor(q2, levels = c("Male", "Female")))
 
 # running the t-test
