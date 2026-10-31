@@ -5,3 +5,6 @@
 reports/impulse_buy.html
 reports/paper.pdf
 demo_readme/
+.Rproj.user
+.Rdata
+.Rhistory

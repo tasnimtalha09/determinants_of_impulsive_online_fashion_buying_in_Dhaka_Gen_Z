@@ -2,6 +2,87 @@ Impulsive Online Fashion Purchase Study
 ================
 Tasnim Talha
 
+- [Introduction](#introduction)
+  - [Aims & Objectives](#aims--objectives)
+    - [**Aim**](#aim)
+    - [**Primary Objectives**](#primary-objectives)
+    - [**Secondary Objectives**](#secondary-objectives)
+  - [Setting up the Environment & Importing the
+    Dataset](#setting-up-the-environment--importing-the-dataset)
+- [Data Preparation](#data-preparation)
+  - [Factorizing the Appropriate
+    Columns](#factorizing-the-appropriate-columns)
+  - [Creating Composite Indices](#creating-composite-indices)
+  - [Calculating the Cronbach’s
+    Alphas](#calculating-the-cronbachs-alphas)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+  - [Demographics & Basic Behavior](#demographics--basic-behavior)
+    - [Age & Gender Distribution](#age--gender-distribution)
+    - [Income vs. Online Shopping
+      Frequency](#income-vs-online-shopping-frequency)
+  - [Platform & Shopping Behavior](#platform--shopping-behavior)
+    - [Most Used Fashion Purchase Platform & Preferred Payment Method
+      Distribution](#most-used-fashion-purchase-platform--preferred-payment-method-distribution)
+    - [Shopping Frequency](#shopping-frequency)
+  - [Peer Pressure](#peer-pressure)
+    - [Peer Pressure Score
+      Distribution](#peer-pressure-score-distribution)
+    - [Peer Pressure by Demographics](#peer-pressure-by-demographics)
+    - [Peer Pressure vs. Regret](#peer-pressure-vs-regret)
+    - [Peer Pressure vs. Unnecessary
+      Purchase](#peer-pressure-vs-unnecessary-purchase)
+    - [Peer Pressure vs. Social Status](#peer-pressure-vs-social-status)
+    - [Peer Pressure vs. Personality
+      Traits](#peer-pressure-vs-personality-traits)
+    - [Peer Pressure vs. Dependent
+      Variable](#peer-pressure-vs-dependent-variable)
+  - [Perceived Social Status](#perceived-social-status)
+    - [Social Status Score
+      Distribution](#social-status-score-distribution)
+    - [Social Status by Demographics](#social-status-by-demographics)
+    - [Social Status vs. Regret](#social-status-vs-regret)
+    - [Social Status vs. Unnecessary
+      Purchase](#social-status-vs-unnecessary-purchase)
+    - [Social Status vs. Personality
+      Traits](#social-status-vs-personality-traits)
+    - [Social Status vs. Dependent
+      Variable](#social-status-vs-dependent-variable)
+  - [Personality Traits](#personality-traits)
+    - [Personality Score Distribution](#personality-score-distribution)
+    - [Personality Traits by Gender &
+      Age](#personality-traits-by-gender--age)
+    - [Personality Traits vs. Regret](#personality-traits-vs-regret)
+    - [Personality Traits vs. Unnecessary
+      Purchase](#personality-traits-vs-unnecessary-purchase)
+    - [Personality Traits vs. Dependent
+      Variable](#personality-traits-vs-dependent-variable)
+  - [Post-Purchase Outcomes &
+    Rationalizations](#post-purchase-outcomes--rationalizations)
+    - [How Often Gen Z Make Unplanned
+      Purchases](#how-often-gen-z-make-unplanned-purchases)
+    - [How Frequently Gen Z Consumers Bought an Item That Were Never
+      Used](#how-frequently-gen-z-consumers-bought-an-item-that-were-never-used)
+    - [How Often Gen Z Consumers Bought an Item That They
+      Regretted](#how-often-gen-z-consumers-bought-an-item-that-they-regretted)
+  - [Payment Mechanics & Financial
+    Access](#payment-mechanics--financial-access)
+  - [Bringing All the Indices
+    Together](#bringing-all-the-indices-together)
+- [Hypothesis Testing](#hypothesis-testing)
+  - [Hypothesis 01](#hypothesis-01)
+  - [Hypothesis 02](#hypothesis-02)
+  - [Hypothesis 03](#hypothesis-03)
+  - [Hypothesis 04](#hypothesis-04)
+  - [Hypothesis 05](#hypothesis-05)
+  - [Hypothesis 06](#hypothesis-06)
+  - [Hypothesis 07](#hypothesis-07)
+  - [Hypothesis 08](#hypothesis-08)
+  - [Hypothesis 09](#hypothesis-09)
+  - [Hypothesis 10](#hypothesis-10)
+- [Summary & Conclusions](#summary--conclusions)
+  - [Summary Table](#summary-table)
+  - [Conclusion](#conclusion)
+
 # Introduction
 
 This research investigates the drivers of impulsive online fashion
@@ -125,7 +206,7 @@ the **raw data**.
 
 ``` r
 # importing the raw dataframe and inspecting the first few rows
-df_raw <- read_excel(path = "../data/survey_response.xlsx", sheet = "raw_data")
+df_raw <- read_excel(path = "data/survey_response.xlsx", sheet = "raw_data")
 head(df_raw)
 ```
 
@@ -155,7 +236,7 @@ numerically coded so that they can be inserted into the models.
 
 ``` r
 # importing the clean dataframe and inspecting the first few rows
-df <- read_excel(path = "../data/survey_response.xlsx", sheet = "clean_data")
+df <- read_excel(path = "data/survey_response.xlsx", sheet = "clean_data")
 head(df)
 ```
 
@@ -183,12 +264,39 @@ convert them into factors.
 df <- df |>
   mutate(
     across(c(q2, q4, q6), as.factor),
-    q1 = factor(x = q1, levels = c("18–22", "23–27", "28 and above"), ordered = TRUE),
-    q3 = factor(x = q3, levels = c("Below 5,000", "5,000–10,000", "10,000–15,000", "15,000–20,000", "Above 20,000"), ordered = TRUE),
-    q5 = factor(x = q5, levels = c("Rarely", "Once a couple months", "Once a month", "2–3 times a month", "Once a week or more"), ordered = TRUE),
-    q23_label = factor(x = q23, levels = c(1:5), labels = c("Never", "Rarely", "Sometimes", "Often", "Very Often"), ordered = TRUE),
-    q24_label = factor(x = q24, levels = c(1, 3, 5), labels = c("No, never", "Yes, a few times", "Yes, many times"), ordered = TRUE),
-    q25_label = factor(x = q25, levels = c(1, 3, 5), labels = c("No", "Maybe", "Yes"), ordered = TRUE)
+    q1 = factor(
+      x = q1,
+      levels = c("18–22", "23–27", "28 and above"),
+      ordered = TRUE
+      ),
+    q3 = factor(
+      x = q3,
+      levels = c("Below 5,000", "5,000–10,000", "10,000–15,000", "15,000–20,000", "Above 20,000"),
+      ordered = TRUE
+      ),
+    q5 = factor(
+      x = q5,
+      levels = c("Rarely", "Once a couple months", "Once a month", "2–3 times a month", "Once a week or more"),
+      ordered = TRUE
+      ),
+    q23_label = factor(
+      x = q23,
+      levels = c(1:5),
+      labels = c("Never", "Rarely", "Sometimes", "Often", "Very Often"),
+      ordered = TRUE
+      ),
+    q24_label = factor(
+      x = q24,
+      levels = c(1, 3, 5),
+      labels = c("No, never", "Yes, a few times", "Yes, many times"),
+      ordered = TRUE
+      ),
+    q25_label = factor(
+      x = q25,
+      levels = c(1, 3, 5),
+      labels = c("No", "Maybe", "Yes"),
+      ordered = TRUE
+      )
   )
 ```
 
@@ -228,10 +336,10 @@ head(
 ## Calculating the Cronbach’s Alphas
 
 Finally, we calculate the **Cronbach’s alpha** to assess the internal
-consistency of the multi-item constructs. According to google,
-***Cronbach’s alpha** (𝛼) is a coefficient of internal consistency or
-reliability used to measure how closely related a set of items (e.g.,
-Likert scale questions) are as a group*.
+consistency of the multi-item constructs. ***Cronbach’s alpha** (𝛼) is a
+coefficient of internal consistency or reliability used to measure how
+closely related a set of items (e.g., Likert scale questions) are as a
+group*.
 
 ``` r
 # for Peer Influence
@@ -398,7 +506,7 @@ ggplot(data = df, aes(x = q1, fill = q2)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/age-gender-distribution-1.png)<!-- -->
+![](../assets/age_gender_distribution.png)
 
 **Key Insights**
 
@@ -420,7 +528,7 @@ ggplot(data = df, aes(x = q3, fill = q5)) +
   scale_y_continuous(labels = scales::percent) +
   labs(
     title = "Income vs. Online Shopping Frequency",
-    x = "Personal Monthly Allowance/Income",
+    x = "Personal Monthly Allowance/Income (BDT)",
     y = "Percentage",
     fill = ""
   ) + 
@@ -433,7 +541,7 @@ ggplot(data = df, aes(x = q3, fill = q5)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/income-vs-shopping-frequency-1.png)<!-- -->
+![](../assets/income_vs_shopping_frequency.png)
 
 **Key Insights**
 
@@ -469,7 +577,7 @@ ggplot(data = df, aes(x = q6, fill = q4)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/platform-payment-distribution-1.png)<!-- -->
+![](../assets/platform_payment_distribution.png)
 
 **Key Insights**
 
@@ -492,7 +600,7 @@ ggplot(data = df, aes(x = q5)) +
   geom_bar() +
   labs(
     title = "Gen Z Shopping Frequency",
-    x = "How Often Gen Z Consumers Buy Fashion Items Online",
+    x = "No. of Times Gen Z Consumers Buy Fashion Items Online",
     y = "Count"
   ) +
   theme_classic() +
@@ -503,7 +611,7 @@ ggplot(data = df, aes(x = q5)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/shopping-frequency-1.png)<!-- -->
+![](../assets/shopping_frequency.png)
 
 **Key Insights**
 
@@ -528,7 +636,7 @@ ggplot(data = df, aes(x = peer_influence_index)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/peer-pressure-distribution-1.png)<!-- -->
+![](../assets/peer_pressure_distribution.png)
 
 **Key Insights**
 
@@ -558,7 +666,7 @@ ggplot(data = df,aes(x = q2, y = peer_influence_index, fill = q1)) +
   )
 ```
 
-![](impulse_buy_files/figure-gfm/peer-pressure-demographics-1.png)<!-- -->
+![](../assets/peer_pressure_demographics.png)
 
 **Key Insights**
 
@@ -592,7 +700,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](impulse_buy_files/figure-gfm/peer-vs-regret-1.png)<!-- -->
+![](../assets/peer_vs_regret.png)
 
 ### Peer Pressure vs. Unnecessary Purchase
 
@@ -618,7 +726,7 @@ ggplot(data = df, aes(
   )
 ```
 
-![](impulse_buy_files/figure-gfm/peer-vs-unnecessary-1.png)<!-- -->
+![](../assets/peer_vs_unnecessary.png)
 
 **Key Insights**
 
@@ -647,7 +755,7 @@ ggplot(df, aes(x = peer_influence_index, y = social_status_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](impulse_buy_files/figure-gfm/peer-vs-social-status-1.png)<!-- -->
+![](../assets/peer_vs_social_status.png)
 
 **Key Insights**
 
@@ -677,7 +785,7 @@ ggplot(df, aes(x = peer_influence_index, y = personality_index)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](impulse_buy_files/figure-gfm/peer-vs-personality-1.png)<!-- -->
+![](../assets/peer_vs_personality.png)
 
 **Key Insights**
 
@@ -1055,7 +1163,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Unplanned Purchase Distribution",
-    x = "How Often Gen Z Consumers Make Unplanned Purchases",
+    x = "No. of Times Gen Z Consumers Make Unplanned Purchases",
     y = "Count"
   ) +
   theme_classic() +
@@ -1083,7 +1191,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Unused Purchase Distribution",
-    x = "How Often Gen Z Consumers Made a Purchase that They Never Used",
+    x = "No. of Times Gen Z Consumers Made a Purchase that They Never Used",
     y = "Count"
   ) +
   theme_classic() +
@@ -1111,7 +1219,7 @@ ggplot(data = df, aes(
   geom_bar() +
   labs(
     title = "Regrettable Purchase Distribution",
-    x = "How Often Gen Z Consumers Bought an Item That They Regretted",
+    x = "No. of Times Gen Z Consumers Bought an Item That They Regretted",
     y = "Count"
   ) +
   theme_classic() +
@@ -1140,7 +1248,7 @@ ggplot(df, aes(x = q3, fill = q4)) +
   geom_bar(position = "dodge") +
   labs(
     title = "Payment Method by Income",
-    x = "Personal Monthly Allowance/Income",
+    x = "Personal Monthly Allowance/Income (BDT)",
     y = "Count",
     fill = "Payment Method"
     ) +
@@ -1166,7 +1274,12 @@ ggplot(df, aes(x = q3, fill = q4)) +
 ## Bringing All the Indices Together
 
 ``` r
-indices <- c("peer_influence_index", "social_status_index", "personality_index", "dependent_variable_index")
+indices <- c(
+  "peer_influence_index",
+  "social_status_index",
+  "personality_index",
+  "dependent_variable_index"
+  )
 
 cor_long <- df |>
   select(all_of(indices)) |>
@@ -1179,7 +1292,7 @@ ggplot(data = cor_long, aes(x = var1, y = var2, fill = corr)) +
   geom_text(aes(label = sprintf("%.2f", corr)), size = 4) +
   scale_fill_gradient2(
     low = "#377EB8",
-    mid = "white",
+    mid = "#FFFFFF",
     high = "#E41A1C",
     midpoint = 0,
     limits = c(-1, 1)
@@ -1195,7 +1308,7 @@ ggplot(data = cor_long, aes(x = var1, y = var2, fill = corr)) +
   theme_classic() +
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.text.x = element_text(angle = 30, hjust = 1)
+    axis.text.x = element_text(angle = 10, hjust = 1)
     )
 ```
 
@@ -1577,8 +1690,13 @@ summary(anova_h7)
 The test reveals the p-value to be **less than 0.001**, which is less
 than or equal to the α (0.05).
 
+We now runn a **post-hoc Tukey HSD** because the ANOVA came back
+significant—the ANOVA only tells us some group differs from another
+whereas Tukey tells us specifically which pairs (e.g., is it Yes vs. No,
+or Maybe vs. No, or both).
+
 ``` r
-# running a post-hoc Tukey HSD because the ANOVA came back significant—the ANOVA only tells us some group differs from another whereas Tukey tells us specifically which pairs (e.g., is it Yes vs. No, or Maybe vs. No, or both)
+# post-hoc Tukey HSD
 TukeyHSD(x = anova_h7)
 ```
 
@@ -1599,8 +1717,12 @@ Only **one** of the three pairwise comparisons clears the 0.05 bar.
 just doesn’t have enough separation (or a big enough sample, n = 29) to
 be confident it’s different from either **No** or **Yes**.
 
+We now check the equal-variance assumption ANOVA relies on (Levene’s
+test)—if this test itself came back significant, it would mean the group
+variances differ too much for the ANOVA p-value above to be trustworthy.
+
 ``` r
-# checking the equal-variance assumption ANOVA relies on (Levene's test)—if this test itself came back significant, it would mean the group variances differ too much for the ANOVA p-value above to be trustworthy
+# Levene's test
 leveneTest(
   y = dependent_variable_index ~ q25_label,
   data = df
@@ -1612,13 +1734,18 @@ leveneTest(
     ## group   2  0.2722 0.7621
     ##       157
 
-From the test, p = **0.762**—not significant, meaning group variances
-are roughly equal. This is good news—it means the ANOVA’s equal-variance
-assumption holds, so the ANOVA’s p-value can be trusted above rather
-than needing to lean on the Kruskal-Wallis backup.
+From the test, p = **0.762**—not significant, meaning there is no
+evidence that the variances differ. This is good news since it means the
+ANOVA’s equal-variance assumption holds, so the ANOVA’s p-value can be
+trusted above rather than needing to lean on the Kruskal-Wallis backup.
+
+Finally, we run an optional non-parametric backup (**Kruskal-Wallis**)
+as a robustness check—since it makes no assumption about normality or
+equal variances, agreement between this and the ANOVA above means the
+conclusion doesn’t hinge on those assumptions holding.
 
 ``` r
-# optionally running a non-parametric backup (Kruskal-Wallis) as a robustness check—since it makes no assumption about normality or equal variances, agreement between this and the ANOVA above means the conclusion doesn't hinge on those assumptions holding
+# Kruskal-Wallis test
 kruskal.test(
   formula = dependent_variable_index ~ q25_label,
   data = df
@@ -1661,14 +1788,14 @@ Method) and the dependent variable (Impulsivity Category, derived from
 the frequency of unplanned purchases in Q23, grouped into
 Low/Medium/High) are both categorical, a **two-tailed chi-square test of
 independence** was conducted to examine whether the null hypothesis can
-be rejected. We run the chi-square test with a Monte Carlo simulation
-(`simulate.p.value = TRUE`) instead of the standard asymptotic p-value,
-because several cells below have small expected counts—the usual
-chi-square approximation isn’t reliable when expected counts drop much
-below 5
+be rejected.
+
+First, we categorize q23 into Low/Medium/High since a chi-square test of
+independence needs two categorical variables, and payment method is
+already categorical, so the numeric q23 needs bucketing first.
 
 ``` r
-# categorizing q23 into Low/Medium/High—a chi-square test of independence needs two categorical variables, and payment method is already categorical, so the numeric q23 needs bucketing first
+# categorizing q23 into Low/Medium/High
 df <- df |> 
   mutate(
     q23_cat = case_when(
@@ -1678,7 +1805,13 @@ df <- df |>
       TRUE ~ NA_character_
     )
   )
+```
 
+Now, we build the contingency table (Payment Method x Impulsivity
+Category) since this cross-tab of observed counts is the actual input
+the chi-square test compares against expected counts.
+
+``` r
 # building the contingency table (Payment Method x Impulsivity Category)—this cross-tab of observed counts is the actual input the chi-square test compares against expected counts
 tab_h8 <- table(df$q4, df$q23_cat)
 
@@ -1692,9 +1825,11 @@ tab_h8
     ##   Credit/debit card                                 5   5      4
     ##   Mobile financial services (bKash/Nagad/Rocket)   15  19     25
 
-``` r
-cat("\n")
-```
+We run the chi-square test with a Monte Carlo simulation
+(`simulate.p.value = TRUE`) instead of the standard asymptotic p-value,
+because several cells above have small expected counts—the usual
+chi-square approximation isn’t reliable when expected counts drop much
+below 5.
 
 ``` r
 # running a Chi-square test of independence
@@ -1712,10 +1847,10 @@ chisq_result
     ##  replicates)
     ## 
     ## data:  tab_h8
-    ## X-squared = 1.326, df = NA, p-value = 0.8702
+    ## X-squared = 1.326, df = NA, p-value = 0.8649
 
 ``` r
-# checking the expected cell counts directly—this is the assumption check, and it's exactly what justified using the simulated p-value above instead of the default one
+# checking the expected cell counts
 chisq_result$expected
 ```
 
@@ -1807,10 +1942,10 @@ leveneTest(
     ## group   4  1.1028 0.3573
     ##       155
 
-From the test, p = **0.357**—not significant, so variances across the
-five income groups are roughly equal. The ANOVA’s equal-variance
-assumption holds, meaning we can trust the F-test above rather than
-leaning on the non-parametric backup.
+From the test, p = **0.357**—not significant, meaning there is no
+evidence that the variances differ. This is good news since it means the
+ANOVA’s equal-variance assumption holds, so the ANOVA’s p-value can be
+trusted above rather than needing to lean on the Kruskal-Wallis backup.
 
 ``` r
 # conducting a Non-parametric backup (optional)
@@ -1848,12 +1983,15 @@ variable (Impulsive Buying Index) is a numeric composite score, a
 **two-tailed independent-samples t-test (Welch’s t-test)** was conducted
 to examine whether the null hypothesis can be rejected. We run Welch’s
 t-test since it doesn’t assume equal variances between groups—a safer
-default here given the uneven group sizes (63 males vs. 97 females)
+default here given the uneven group sizes (63 males vs. 97 females).
+
+We convert gender into a two-level factor since a t-test compares
+exactly two groups. So this just locks in which two and their order
+(Male first, Female second).
 
 ``` r
-# keeping only "Male" and "Female" and converting gender into a two-level factor—a t-test compares exactly two groups, so this just locks in which two and their order (Male first, Female second)
+# correcting the order of q2
 df_h10 <- df |>  
-  filter(q2 %in% c("Male", "Female")) |>  
   mutate(q2 = factor(q2, levels = c("Male", "Female")))
 
 # running the t-test

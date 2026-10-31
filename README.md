@@ -1,5 +1,4 @@
-<div style = "text-align: justify;">
-
+::: {style="text-align: justify;"}
 # Determinants of Impulsive Online Fashion Buying Behavior in Dhaka Gen Z Consumers
 
 ## Executive Summary
@@ -8,12 +7,7 @@ This project investigates the determinants of **impulsive online fashion buying 
 
 Quantitative analysis was conducted entirely in **R**, using **Exploratory Data Analysis (EDA)** across 27 visualizations and **10 hypothesis tests** spanning multiple linear regression, simple linear regression, one-way ANOVA, Kruskal–Wallis, chi-square, and Welch's t-test. The analysis reveals a clear hierarchy of influence:
 
-**Key Findings:**
-* **Personality traits** are the dominant predictor of impulsive buying (β = 0.621, p \< 0.001), explaining **32.69%** of variance alone.
-* **Perceived social status** is a significant but secondary predictor (β = 0.186, p = 0.029).
-* **Peer influence**, despite being statistically significant in isolation (p = 0.021), loses significance when controlling for the other predictors (p = 0.661)—suggesting it operates indirectly through social status rather than driving purchases directly.
-* **Female respondents** exhibit significantly higher impulsivity than males (M = 3.22 vs 2.47, p \< 0.001).
-* **9 out of 10** null hypotheses were rejected; only payment method showed no significant association with impulsive buying.
+**Key Findings:** \* **Personality traits** are the dominant predictor of impulsive buying (β = 0.621, p \< 0.001), explaining **32.69%** of variance alone. \* **Perceived social status** is a significant but secondary predictor (β = 0.186, p = 0.029). \* **Peer influence**, despite being statistically significant in isolation (p = 0.021), loses significance when controlling for the other predictors (p = 0.661)—suggesting it operates indirectly through social status rather than driving purchases directly. \* **Female respondents** exhibit significantly higher impulsivity than males (M = 3.22 vs 2.47, p \< 0.001). \* **9 out of 10** null hypotheses were rejected; only payment method showed no significant association with impulsive buying.
 
 ![](assets/correlation_heatmap.png) ***Figure 01:** Correlation Heatmap of Composite Indices.*
 
@@ -27,11 +21,7 @@ The central research question addressed in this project is:
 
 > ***What are the primary determinants of impulsive online fashion buying behavior among Generation Z consumers in Dhaka, and how do external social pressures and internal personality traits interact to drive unplanned purchases?***
 
-Understanding these drivers enables:
-* **Marketers** to design targeted campaigns that leverage mood-lifting content and post-purchase validation
-* **Platforms** to understand which features (e.g., social proof, peer recommendations) amplify impulse buying
-* **Researchers** to build on a quantitative foundation specific to the South Asian social commerce context
-* **Consumers** to develop awareness of the psychological triggers behind their own unplanned spending
+Understanding these drivers enables: \* **Marketers** to design targeted campaigns that leverage mood-lifting content and post-purchase validation \* **Platforms** to understand which features (e.g., social proof, peer recommendations) amplify impulse buying \* **Researchers** to build on a quantitative foundation specific to the South Asian social commerce context \* **Consumers** to develop awareness of the psychological triggers behind their own unplanned spending
 
 ## Methodology
 
@@ -39,34 +29,17 @@ Understanding these drivers enables:
 
 The dataset was collected via a structured survey of **160 Gen Z respondents** (aged 18–27) in Dhaka, covering demographics, shopping behavior, and Likert-scale measures across three independent variable constructs and one dependent variable construct.
 
-**Survey Structure (25 questions):**
-* **Demographics (q1–q6):** Age, gender, income, payment method, shopping frequency, platform preference
-* **Peer Influence (q7–q11):** 5 Likert-scale items measuring susceptibility to peer pressure
-* **Perceived Social Status (q12–q15):** 4 Likert-scale items measuring status-driven purchase motivation
-* **Personality Traits (q16–q22):** 7 Likert-scale items measuring impulsivity, hedonic motives, and emotional triggers
-* **Dependent Variable (q23–q25):** Frequency of unplanned purchases, unused purchases, and purchase regret
+**Survey Structure (25 questions):** \* **Demographics (q1–q6):** Age, gender, income, payment method, shopping frequency, platform preference \* **Peer Influence (q7–q11):** 5 Likert-scale items measuring susceptibility to peer pressure \* **Perceived Social Status (q12–q15):** 4 Likert-scale items measuring status-driven purchase motivation \* **Personality Traits (q16–q22):** 7 Likert-scale items measuring impulsivity, hedonic motives, and emotional triggers \* **Dependent Variable (q23–q25):** Frequency of unplanned purchases, unused purchases, and purchase regret
 
-**Data Preparation Pipeline:**
-1. **Factorization**: Converted ordinal variables (age, income, frequency) into ordered factors
-2. **Composite Index Creation**: Built four composite indices by averaging Likert items within each construct
-3. **Reliability Testing**: Verified internal consistency using **Cronbach's alpha** for all multi-item scales
+**Data Preparation Pipeline:** 1. **Factorization**: Converted ordinal variables (age, income, frequency) into ordered factors 2. **Composite Index Creation**: Built four composite indices by averaging Likert items within each construct 3. **Reliability Testing**: Verified internal consistency using **Cronbach's alpha** for all multi-item scales
 
 ### Analytical Framework
 
 The analysis followed a two-phase approach:
 
-**Phase 1: Exploratory Data Analysis (27 visualizations)** 
-* Demographic and behavioral profiling (bar charts, stacked charts)
-* Index distribution analysis (histograms, boxplots)
-* Cross-index relationship mapping (scatterplots with regression lines, density plots)
-* Correlation heatmap across all composite indices
+**Phase 1: Exploratory Data Analysis (27 visualizations)** \* Demographic and behavioral profiling (bar charts, stacked charts) \* Index distribution analysis (histograms, boxplots) \* Cross-index relationship mapping (scatterplots with regression lines, density plots) \* Correlation heatmap across all composite indices
 
-**Phase 2: Hypothesis Testing (10 hypotheses)**
-* Multiple and simple linear regressions for continuous predictors
-* One-way ANOVA with Tukey HSD post-hoc and Levene's assumption checks
-* Kruskal–Wallis tests for small/uneven groups
-* Chi-square test of independence (with Monte Carlo simulation)
-* Welch's two-sample t-test for gender comparisons
+**Phase 2: Hypothesis Testing (10 hypotheses)** \* Multiple and simple linear regressions for continuous predictors \* One-way ANOVA with Tukey HSD post-hoc and Levene's assumption checks \* Kruskal–Wallis tests for small/uneven groups \* Chi-square test of independence (with Monte Carlo simulation) \* Welch's two-sample t-test for gender comparisons
 
 ## Exploratory Data Analysis
 
@@ -201,7 +174,7 @@ Ten hypotheses were tested using the appropriate statistical tests based on vari
 ***Table 01:** Summary of Hypothesis Testing Results.*
 
 | No. | Hypothesis | Test Used | Result |
-|-----------------|-----------------|-----------------|------------------|
+|------------------|------------------|------------------|-------------------|
 | **01** | Peer Influence, Perceived Social Status, and Behavioral Traits jointly predict impulsive buying | Multiple Linear Regression | **Reject Null** |
 | **02** | Behavioral Traits have no significant effect on impulse buying | Simple Linear Regression | **Reject Null** |
 | **03** | Peer influence has no significant effect on impulsive buying | Simple Linear Regression | **Reject Null** |
@@ -215,50 +188,32 @@ Ten hypotheses were tested using the appropriate statistical tests based on vari
 
 #### Key Findings from Hypothesis Testing
 
-**1. Personality Traits Dominate (H1, H2):**
-* The multiple regression model (H1) explains **34.73%** of variance in impulsive buying (p \< 0.001). Personality traits (β = 0.621) and social status (β = 0.186) are significant, but **peer influence drops out** (β = -0.038, p = 0.661) when all three are modeled together.
-* In isolation (H2), personality explains **32.69%** of variance—nearly all of the joint model's explanatory power comes from this single construct.
+**1. Personality Traits Dominate (H1, H2):** \* The multiple regression model (H1) explains **34.73%** of variance in impulsive buying (p \< 0.001). Personality traits (β = 0.621) and social status (β = 0.186) are significant, but **peer influence drops out** (β = -0.038, p = 0.661) when all three are modeled together. \* In isolation (H2), personality explains **32.69%** of variance—nearly all of the joint model's explanatory power comes from this single construct.
 
-**2. Peer Influence Operates Indirectly (H3, H5):**
-* Peer influence is significant alone (H3: p = 0.021) but explains only **3.31%** of variance. It significantly predicts perceived social status (H5: p \< 0.001, R² = 11.52%), suggesting an **indirect pathway**: peer pressure → social status pressure → impulsive buying.
+**2. Peer Influence Operates Indirectly (H3, H5):** \* Peer influence is significant alone (H3: p = 0.021) but explains only **3.31%** of variance. It significantly predicts perceived social status (H5: p \< 0.001, R² = 11.52%), suggesting an **indirect pathway**: peer pressure → social status pressure → impulsive buying.
 
-**3. Platform and Income Matter, Payment Method Does Not (H6, H8, H9):**
-* Impulsive buying **differs by platform** (H6: p = 0.003), with Instagram users showing the highest impulsivity.
-* Income significantly predicts impulsive buying (H9: p = 0.006), driven by the **Below 5,000** group scoring lower than all bands above 10,000. 
-* Payment method shows **no association** with impulsive buying (H8: p = 0.857)—the only null that was not rejected.
+**3. Platform and Income Matter, Payment Method Does Not (H6, H8, H9):** \* Impulsive buying **differs by platform** (H6: p = 0.003), with Instagram users showing the highest impulsivity. \* Income significantly predicts impulsive buying (H9: p = 0.006), driven by the **Below 5,000** group scoring lower than all bands above 10,000. \* Payment method shows **no association** with impulsive buying (H8: p = 0.857)—the only null that was not rejected.
 
-**4. Gender Gap and Regret (H7, H10):**
-* Female respondents show significantly higher impulsivity than males (H10: M = 3.22 vs 2.47, p \< 0.001).
-* Higher impulsivity is significantly associated with post-purchase regret (H7: p \< 0.001), driven specifically by the **Yes-regret** group scoring higher than the **No-regret** group.
+**4. Gender Gap and Regret (H7, H10):** \* Female respondents show significantly higher impulsivity than males (H10: M = 3.22 vs 2.47, p \< 0.001). \* Higher impulsivity is significantly associated with post-purchase regret (H7: p \< 0.001), driven specifically by the **Yes-regret** group scoring higher than the **No-regret** group.
 
 ## Conclusion
 
 This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven primarily by **internal psychological states** rather than external mechanics. The findings reveal a clear **driver hierarchy**:
 
-**Primary Driver: Personality Traits**
-* Strongest predictor across all analyses (r = 0.57, β = 0.621)
-* Encompasses impulsivity, hedonic motivation, and emotional gratification seeking
-* Shows the largest gender gap—females score markedly higher than males
+**Primary Driver: Personality Traits** \* Strongest predictor across all analyses (r = 0.57, β = 0.621) \* Encompasses impulsivity, hedonic motivation, and emotional gratification seeking \* Shows the largest gender gap—females score markedly higher than males
 
-**Secondary Driver: Perceived Social Status**
-* Significant in both isolation and the joint model (β = 0.186, p = 0.029)
-* Partially mediates the effect of peer influence on impulsive buying
+**Secondary Driver: Perceived Social Status** \* Significant in both isolation and the joint model (β = 0.186, p = 0.029) \* Partially mediates the effect of peer influence on impulsive buying
 
-**Indirect Driver: Peer Influence**
-* Significant alone but loses predictive power when personality and status are controlled * Operates primarily by intensifying social status pressure (R² = 11.52%)
+**Indirect Driver: Peer Influence** \* Significant alone but loses predictive power when personality and status are controlled \* Operates primarily by intensifying social status pressure (R² = 11.52%)
 
-**Moderating Factors**
-* **Gender**: Female respondents exhibit significantly higher impulsivity (p \< 0.001)
-* **Platform**: Instagram users show the highest impulsive buying levels (p = 0.003)
-* **Income**: A threshold effect—respondents below BDT 5,000 score lower, but no gradient exists above that level
-* **Payment Method**: No significant association (p = 0.857)
+**Moderating Factors** \* **Gender**: Female respondents exhibit significantly higher impulsivity (p \< 0.001) \* **Platform**: Instagram users show the highest impulsive buying levels (p = 0.003) \* **Income**: A threshold effect—respondents below BDT 5,000 score lower, but no gradient exists above that level \* **Payment Method**: No significant association (p = 0.857)
 
 **Strategic Insight:** Impulsive fashion consumption in Dhaka is a **cyclical process of mood regulation**—personality-driven consumers buy on impulse to regulate emotions, often experience regret, yet many rationalize their purchases as necessary or meaningful. Marketers should focus on creating **mood-lifting content** and providing **post-purchase validation** to neutralize consumer guilt, rather than relying solely on peer pressure tactics.
 
 ### Tech Stack & Tools
 
 | Tool          | Purpose                                     |
-|:--------------|:--------------------------------------------| 
+|:--------------|:--------------------------------------------|
 | **R**         | Statistical analysis and visualization      |
 | **tidyverse** | Data wrangling and ggplot2 visualizations   |
 | **readxl**    | Excel data import                           |
@@ -269,11 +224,10 @@ This study concludes that impulsive fashion buying among Dhaka's Gen Z is driven
 ### Repository Structure
 
 ```         
-├── assets/                  # All 27 generated plots
-├── data/                    # Raw and clean survey data
-├── doc                      # GitHub-rendered markdown & HTML output and the academic paper
-├── src/                     # Main R Markdown analysis file (source)
+├── assets/                     # All 27 generated plots
+├── data/                       # Raw and clean survey data
+├── doc/                        # GitHub-rendered markdown & HTML output and the academic paper
+├── src/                        # Main R Markdown analysis file (source)
 └── README.md                # This file
 ```
-
-</div>
+:::
