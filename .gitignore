@@ -1,6 +1,11 @@
+# macOS
 .DS_Store
+
+# R / RStudio
+.RData
+.Rhistory
+.Rproj.user/
+
+# excluded project files
 reports/paper.pdf
 demo_readme/
-.Rproj.user
-.Rdata
-.Rhistory
